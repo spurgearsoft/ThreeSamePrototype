@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9571D2511890D20200BBC1DA /* IBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 9571D2501890D20200BBC1DA /* IBlock.m */; };
+		9571D2541890D3E000BBC1DA /* IMapInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9571D2531890D3E000BBC1DA /* IMapInfo.m */; };
+		9571D2581890F6E700BBC1DA /* SGIntPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 9571D2571890F6E700BBC1DA /* SGIntPoint.m */; };
 		D40D676A1890118100940F80 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D40D67691890118100940F80 /* Foundation.framework */; };
 		D40D676C1890118100940F80 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D40D676B1890118100940F80 /* CoreGraphics.framework */; };
 		D40D676E1890118100940F80 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D40D676D1890118100940F80 /* UIKit.framework */; };
@@ -49,6 +52,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9571D24F1890D20200BBC1DA /* IBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBlock.h; sourceTree = "<group>"; };
+		9571D2501890D20200BBC1DA /* IBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBlock.m; sourceTree = "<group>"; };
+		9571D2521890D3E000BBC1DA /* IMapInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMapInfo.h; sourceTree = "<group>"; };
+		9571D2531890D3E000BBC1DA /* IMapInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMapInfo.m; sourceTree = "<group>"; };
+		9571D2561890F6E700BBC1DA /* SGIntPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGIntPoint.h; sourceTree = "<group>"; };
+		9571D2571890F6E700BBC1DA /* SGIntPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGIntPoint.m; sourceTree = "<group>"; };
 		D40D67661890118100940F80 /* ThreeSamePrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThreeSamePrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D40D67691890118100940F80 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D40D676B1890118100940F80 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -153,6 +162,12 @@
 				D40D67811890118100940F80 /* ViewController.m */,
 				D40D67831890118100940F80 /* MyScene.h */,
 				D40D67841890118100940F80 /* MyScene.m */,
+				9571D24F1890D20200BBC1DA /* IBlock.h */,
+				9571D2501890D20200BBC1DA /* IBlock.m */,
+				9571D2521890D3E000BBC1DA /* IMapInfo.h */,
+				9571D2531890D3E000BBC1DA /* IMapInfo.m */,
+				9571D2561890F6E700BBC1DA /* SGIntPoint.h */,
+				9571D2571890F6E700BBC1DA /* SGIntPoint.m */,
 				D40D67861890118100940F80 /* Spaceship.png */,
 				D40D67881890118100940F80 /* Images.xcassets */,
 				D40D67721890118100940F80 /* Supporting Files */,
@@ -319,6 +334,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D40D67851890118100940F80 /* MyScene.m in Sources */,
+				9571D2511890D20200BBC1DA /* IBlock.m in Sources */,
+				9571D2581890F6E700BBC1DA /* SGIntPoint.m in Sources */,
+				9571D2541890D3E000BBC1DA /* IMapInfo.m in Sources */,
 				D40D67821890118100940F80 /* ViewController.m in Sources */,
 				D40D677C1890118100940F80 /* AppDelegate.m in Sources */,
 				D40D67781890118100940F80 /* main.m in Sources */,

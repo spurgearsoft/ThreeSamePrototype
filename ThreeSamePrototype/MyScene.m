@@ -12,20 +12,40 @@
 
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
-        /* Setup your scene here */
-        
-        self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
-        
-        SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
-        
-        myLabel.text = @"Hello, World!";
-        myLabel.fontSize = 30;
-        myLabel.position = CGPointMake(CGRectGetMidX(self.frame),
-                                       CGRectGetMidY(self.frame));
-        
-        [self addChild:myLabel];
+        mapInfo = [IMapInfo mapWithWidth:8 height:8];
+        [mapInfo fillBlock];
+        sprites = [NSMutableDictionary new];
+        [self makeSprites];
+        [self spriteAnimate];
     }
     return self;
+}
+-(void)makeSprites{
+    for (int i=0; i<mapInfo.objects.count; i++) {
+        IBlock *oBlock = [mapInfo.objects objectAtIndex:i];
+        SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:[NSString stringWithFormat:@"%d", oBlock.type+1]];
+        sprite.position = [mapInfo pointToCGPointX:oBlock.point.x y:0];
+        NSLog(@"x:%d y:%d %@", oBlock.point.x, oBlock.point.y, NSStringFromCGPoint(sprite.position));
+        [sprites setObject:sprite forKey:[NSString stringWithFormat:@"%d_%d",oBlock.point.x, oBlock.point.y]];
+        [self addChild:sprite];
+    }
+}
+
+-(void)spriteAnimate{
+    for (NSString *k in sprites) {
+        int ax = [[k substringToIndex:1] intValue];
+        int ay = [[k substringFromIndex:2] intValue];
+        NSLog(@"%d %d", ax, ay);
+        SKSpriteNode *sp = [sprites objectForKey:k];
+        SKAction *action = [SKAction moveTo:[mapInfo pointToCGPointX:ax y:ay] duration:0.5];
+        [sp runAction:[SKAction repeatActionForever:action]];
+    }
+}
+
+-(void)refreshMapInfo{
+    if (mapInfo == nil) return;
+    if (sprites == nil) return;
+    
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {

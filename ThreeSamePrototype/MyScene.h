@@ -7,7 +7,12 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "IMapInfo.h"
+#import "IBlock.h"
 
-@interface MyScene : SKScene
+@interface MyScene : SKScene{
+    IMapInfo *mapInfo;
+    NSMutableDictionary *sprites;
+}
 
 @end

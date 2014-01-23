@@ -28,7 +28,10 @@
 
 - (void)testExample
 {
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    for (int i=0; i<50; i++) {
+        NSLog(@"----------random:[%d]%d",i, (int)random()%6);
+    }
+    
 }
 
 @end
