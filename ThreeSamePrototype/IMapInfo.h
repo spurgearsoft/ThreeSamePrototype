@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "IBlock.h"
 
 @interface IMapInfo : NSObject {
     int width;
@@ -24,4 +25,7 @@
 -(CGPoint)pointToCGPointX:(int)ex y:(int)ey;
 -(NSMutableArray *)checkEmptyBlock;
 -(BOOL)isEmptyBlockX:(int)ex y:(int)ey;
+-(IBlock *)findBlockFromCGPoint:(CGPoint)iPoint;
+-(IBlock *)findBlockFromPointX:(int)ex y:(int)ey;
+
 @end

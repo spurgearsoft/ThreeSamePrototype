@@ -7,7 +7,10 @@
 //
 
 #import "IMapInfo.h"
-#import "IBlock.h"
+
+static const CGFloat mapLeft = 0;
+static const CGFloat mapTop = 150;
+static const CGFloat mapBlockWidth = 40;
 
 @implementation IMapInfo
 
@@ -27,15 +30,24 @@
     return self;
 }
 -(CGPoint)pointToCGPointX:(int)ex y:(int)ey{
-    CGFloat left = 30;
-    CGFloat top = 150;
-    CGFloat mwidth = 30;
-    return CGPointMake((ex * mwidth) + left, ((self.height - ey) * mwidth) + top);
+    return CGPointMake((ex * mapBlockWidth) + mapLeft, ((self.height - ey) * mapBlockWidth) + mapTop);
 }
+-(IBlock *)findBlockFromCGPoint:(CGPoint)iPoint{
+    int ex = (int)floor((iPoint.x - mapLeft) / mapBlockWidth);
+    int ey = self.height - (int)floor((iPoint.y - mapTop) / mapBlockWidth);
+    return [self findBlockFromPointX:ex y:ey];
+}
+-(IBlock *)findBlockFromPointX:(int)ex y:(int)ey{
+    for (int i=0; i<objects.count; i++) {
+        IBlock *iBlock = [objects objectAtIndex:i];
+        if([iBlock.point isEqualToPoint:[SGIntPoint pointMakeX:ex y:ey]]) return iBlock;
+    }
+    return nil;
+}
+
 -(void)fillBlock{
     for (int x=0; x<width; x++) {
         for (int y=0; y<height; y++) {
-            if (x == 0 && y == 0) continue;
             if ([self isEmptyBlockX:x y:y]) {
                 [self.objects addObject:[IBlock blockWithRandomTypeX:x y:y]];
             }

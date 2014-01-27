@@ -24,47 +24,78 @@
     for (int i=0; i<mapInfo.objects.count; i++) {
         IBlock *oBlock = [mapInfo.objects objectAtIndex:i];
         SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:[NSString stringWithFormat:@"%d", oBlock.type+1]];
+        NSString *sName = [self stringFromPointX:oBlock.point.x y:oBlock.point.y];
+        [sprite setName:sName];
         sprite.position = [mapInfo pointToCGPointX:oBlock.point.x y:0];
-        NSLog(@"x:%d y:%d %@", oBlock.point.x, oBlock.point.y, NSStringFromCGPoint(sprite.position));
-        [sprites setObject:sprite forKey:[NSString stringWithFormat:@"%d_%d",oBlock.point.x, oBlock.point.y]];
+        [sprite setAnchorPoint:CGPointMake(0, 0)];
+        [sprites setObject:sprite forKey:sName];
         [self addChild:sprite];
     }
+}
+-(NSString *)stringFromPointX:(int)ex y:(int)ey{
+    return [NSString stringWithFormat:@"%d_%d",ex, ey];
 }
 
 -(void)spriteAnimate{
     for (NSString *k in sprites) {
         int ax = [[k substringToIndex:1] intValue];
         int ay = [[k substringFromIndex:2] intValue];
-        NSLog(@"%d %d", ax, ay);
         SKSpriteNode *sp = [sprites objectForKey:k];
-        SKAction *action = [SKAction moveTo:[mapInfo pointToCGPointX:ax y:ay] duration:0.5];
-        [sp runAction:[SKAction repeatActionForever:action]];
+        CGPoint point = [mapInfo pointToCGPointX:ax y:ay];
+        SKAction *action = [SKAction moveTo:point duration:0.5];
+        [sp runAction:action];
     }
 }
 
 -(void)refreshMapInfo{
     if (mapInfo == nil) return;
     if (sprites == nil) return;
-    
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     /* Called when a touch begins */
     
-    for (UITouch *touch in touches) {
-        CGPoint location = [touch locationInNode:self];
+    if (touches.count == 1) {
+        UITouch *touch = [touches anyObject];
+        touchStartPoint = [touch locationInNode:self];
+        touchCount = 0;
+        [self selectBlock:touchStartPoint];
+    }
+//    for (UITouch *touch in touches) {
+//
+//    }
+}
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
+    if (touchCount > 5) {
+        touchCount = 0;
         
-        SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
-        
-        sprite.position = location;
-        
-        SKAction *action = [SKAction rotateByAngle:M_PI duration:1];
-        
-        [sprite runAction:[SKAction repeatActionForever:action]];
-        
-        [self addChild:sprite];
+    } else {
+        touchCount++;
     }
 }
+-(void)selectBlock:(CGPoint)iPoint{
+    if (currentNode != nil){
+        [currentNode removeAllActions];
+        [currentNode setAlpha:1];
+    }
+    currentNode = [self findSpriteFromCGPoint:iPoint];
+    SKAction *blinkActon = [SKAction sequence:@[[SKAction fadeOutWithDuration:0.5],
+                                                [SKAction fadeInWithDuration:0.5]]];
+    SKAction *blinkForeverAction = [SKAction repeatActionForever:blinkActon];
+    [currentNode runAction:blinkForeverAction];
+
+}
+
+-(SKSpriteNode *)findSpriteFromCGPoint:(CGPoint)iPoint{
+    IBlock *iBlock = [mapInfo findBlockFromCGPoint:iPoint];
+    NSLog(@"block:%d/%d", iBlock.point.x, iBlock.point.y);
+    return [self findSpriteFromPointX:iBlock.point.x y:iBlock.point.y];
+}
+-(SKSpriteNode *)findSpriteFromPointX:(int)ex y:(int)ey{
+    NSString *k = [self stringFromPointX:ex y:ey];
+    return [sprites objectForKey:k];
+}
+
 
 -(void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
